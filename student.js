@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { parse } = require('path')
 
 const dbPath = './db.json'
 
@@ -29,6 +30,8 @@ exports.add = function (stu, cb) {
     const students = JSON.parse(data).students
     // 添加 id
     stu.id = students[students.length - 1].id + 1
+    stu.gender = parseInt(stu.gender)
+    stu.age = parseInt(stu.age)
     students.push(stu)
     // 结果转成JSON字符串
     const result = JSON.stringify({
@@ -48,6 +51,8 @@ exports.edit = function (stu, cb) {
     const students = JSON.parse(data).students
     // 修改 id 的数据类型为数值
     stu.id = parseInt(stu.id)
+    stu.gender = parseInt(stu.gender)
+    stu.age = parseInt(stu.age)
     const currentStu = students.find(item => {
       return item.id === stu.id
     })
